@@ -59,7 +59,7 @@ Lefts,
 Rights,
 
 //Specify the PORT NUMBER of your inertial sensor, in PORT format (i.e. "PORT1", not simply "1"):
-PORT18,
+PORT16,
 
 //Input your wheel diameter. (4" omnis are actually closer to 4.125"):
 3.25,
@@ -179,6 +179,7 @@ void pre_auton() {
  */
 
 void autonomous(void) {
+
   auto_started = true;
   switch(current_auton_selection){ 
     case 0:
@@ -206,6 +207,7 @@ void autonomous(void) {
       holonomic_odom_test();
       break;
  }
+ 
 }
 
 /*---------------------------------------------------------------------------*/
@@ -229,16 +231,16 @@ void ClampToggle(){
   }
 }
 
-// void FlagToggle(){
-//   if (Flag.value() == true){
-//     Flag.set(false);
-//   }
-//   else {
-//     Flag.set(true);
-//     wait(20, msec); // Sleep the task for a short amount of time to
-//                     // prevent wasted resources.
-//   }
-//}
+ void FlagToggle(){
+   if (Flag.value() == true){
+     Flag.set(false);
+   }
+   else {
+     Flag.set(true);
+     wait(20, msec); // Sleep the task for a short amount of time to
+                     // prevent wasted resources.
+   }
+}
 
 
 const float kp = 1;
@@ -326,6 +328,7 @@ void usercontrol(void) {
   while (true) {
     intake1.setVelocity(100, pct);
     ladybrown.setVelocity(100, pct);
+
     if(Controller1.ButtonB.pressing()){
       Clamp.set(!big);
       big = !big;
@@ -337,6 +340,11 @@ void usercontrol(void) {
       Flagtrueorfalse = !Flagtrueorfalse;
       wait(200, msec);
     }
+    //  Flag.set(true);
+    //}
+    //else {
+    //  Flag.set(false);
+    //}
 
     // This is the main execution loop for the user control program.
     // Each time through the loop your program should update motor + servo
@@ -396,7 +404,7 @@ if (Controller1.ButtonL1.pressing()) {
 //
 int main() {
   // Set up callbacks for autonomous and driver control periods.
-  Competition.autonomous(bluenegative);
+  Competition.autonomous(bluenegWP);
   Competition.drivercontrol(usercontrol);
 
   // Run the pre-autonomous function.
