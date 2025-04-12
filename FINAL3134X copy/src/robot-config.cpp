@@ -14,11 +14,11 @@ brain  Brain;
 motor intake1 = motor(PORT1, ratio6_1, false);
 controller Controller1 = controller(primary);
 digital_out mogoMount = digital_out(Brain.ThreeWirePort.A);
-inertial DrivetrainInertial = inertial(PORT15);
+inertial DrivetrainInertial = inertial(PORT16);
 motor ladybrown = motor(PORT8, ratio18_1, true);
 rotation armrot = rotation(PORT21,false);
 digital_out Clamp = digital_out(Brain.ThreeWirePort.A);
-digital_out Flag = digital_out(Brain.ThreeWirePort.C);
+digital_out Flag = digital_out(Brain.ThreeWirePort.D);
 
 
 double angle = armrot.angle(degrees);
