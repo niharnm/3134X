@@ -22,14 +22,14 @@ competition Competition;
 /*  all the physical constants and values for your robot. You should         */
 /*  already have configured your motors.                                     */
 /*---------------------------------------------------------------------------*/
-motor LeftA = motor(PORT12, ratio6_1, true);
-motor LeftB = motor(PORT14, ratio6_1, true);
+motor LeftA = motor(PORT14, ratio6_1, true);
+motor LeftB = motor(PORT19, ratio6_1, true);
 motor LeftC = motor(PORT11, ratio6_1, true);
 motor_group Lefts = motor_group(LeftA, LeftB,LeftC);
 
-motor RightA = motor(PORT17, ratio6_1, false);
-motor RightB = motor(PORT13, ratio6_1, false);
-motor RightC = motor(PORT20, ratio6_1, false);
+motor RightA = motor(PORT6, ratio6_1, false);
+motor RightB = motor(PORT17, ratio6_1, false);
+motor RightC = motor(PORT15, ratio6_1, false);
 motor_group Rights = motor_group(RightA, RightB, RightC);
 
 Drive chassis(
@@ -257,8 +257,8 @@ const float update_period = 10;
 // }
 
 enum LadybrownPositions {
-    SET = 21,
-    SCORE = 160,
+    SET = 50,
+    SCORE = 270,
     RESET = 0,
 };
 
@@ -317,7 +317,7 @@ void startMoveToAngle(float angle) {
 
 void usercontrol(void) {
    ladybrown.spin(fwd,100,pct);
- wait(1,sec);
+ wait(.5,sec);
  ladybrown.stop(hold);
  ladybrown.resetPosition();
  ladybrown.stop(hold);
@@ -326,6 +326,8 @@ void usercontrol(void) {
 
   // User control code here, inside the loop
   while (true) {
+    chassis.control_arcade();
+  
     intake1.setVelocity(100, pct);
     ladybrown.setVelocity(100, pct);
 
@@ -357,8 +359,6 @@ void usercontrol(void) {
 
     //Replace this line with chassis.control_tank(); for tank drive 
     //or chassis.control_holonomic(); for holo drive.
-    chassis.control_arcade();
-
     if (Controller1.ButtonR1.pressing()) {
         intake1.spin(forward);
         
